@@ -1,0 +1,24 @@
+{
+  "name": "x402-cloudflare-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The simplest way to accept USDC on Base + Solana with x402. Bring your own wallets. No Coinbase account required.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "hono": "^4.6.12",
+    "@x402/hono": "^2.2.0",
+    "@x402/core": "^2.2.0",
+    "@x402/evm": "^2.2.0",
+    "@x402/svm": "^2.2.0",
+    "@payai/facilitator": "^1.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0",
+    "typescript": "^5.7.2",
+    "@cloudflare/workers-types": "^4.20241218.0"
+  }
+}
