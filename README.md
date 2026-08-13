@@ -10,6 +10,10 @@
 
 ---
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ANAMIZED/x402-cloudflare-starter)
+
+---
+
 ## Features
 
 - Accept payments on **Base Mainnet** and **Solana Mainnet**
@@ -22,26 +26,25 @@
 
 ## Quick Start
 
-### 1. Clone or Use as Template
+### Option A — One-Click Deploy (Recommended)
+
+Click the button above, then set these two secrets in the Cloudflare dashboard:
+
+- `BASE_ADDRESS` → your Base wallet (`0x...`)
+- `SOLANA_ADDRESS` → your Solana wallet
+
+### Option B — Manual
 
 ```bash
 git clone https://github.com/ANAMIZED/x402-cloudflare-starter.git
 cd x402-cloudflare-starter
 npm install
-```
 
-### 2. Set Your Wallet Addresses
-
-```bash
+# Set your wallet addresses as secrets
 npx wrangler secret put BASE_ADDRESS
 npx wrangler secret put SOLANA_ADDRESS
-```
 
-Paste your real Base (`0x...`) and Solana addresses when prompted.
-
-### 3. Deploy
-
-```bash
+# Deploy
 npm run deploy
 ```
 
@@ -58,6 +61,18 @@ https://x402-cloudflare-starter.<your-subdomain>.workers.dev/weather
 ```bash
 npm run dev
 ```
+
+---
+
+## Test Client
+
+A simple script that automatically pays is included:
+
+```bash
+npx tsx scripts/test-client.ts https://your-worker.workers.dev/weather
+```
+
+Make sure you have funded private keys in your environment (for testing only).
 
 ---
 

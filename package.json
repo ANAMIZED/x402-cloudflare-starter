@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "tail": "wrangler tail"
+    "tail": "wrangler tail",
+    "test:client": "tsx scripts/test-client.ts"
   },
   "dependencies": {
     "hono": "^4.6.12",
@@ -19,6 +20,11 @@
   "devDependencies": {
     "wrangler": "^3.99.0",
     "typescript": "^5.7.2",
-    "@cloudflare/workers-types": "^4.20241218.0"
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "tsx": "^4.19.2",
+    "@x402/fetch": "^2.2.0",
+    "viem": "^2.21.0",
+    "@solana/kit": "^2.0.0",
+    "@scure/base": "^1.1.9"
   }
 }
