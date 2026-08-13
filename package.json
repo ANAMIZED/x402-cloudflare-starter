@@ -1,8 +1,13 @@
 {
   "name": "x402-cloudflare-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "The simplest way to accept USDC on Base + Solana with x402. Bring your own wallets. No Coinbase account required.",
+  "description": "The cleanest way to accept USDC micropayments on Base + Solana with x402. Bring your own wallets. No Coinbase account required.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ANAMIZED/x402-cloudflare-starter"
+  },
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
@@ -26,5 +31,17 @@
     "viem": "^2.21.0",
     "@solana/kit": "^2.0.0",
     "@scure/base": "^1.1.9"
-  }
+  },
+  "keywords": [
+    "x402",
+    "payments",
+    "usdc",
+    "base",
+    "solana",
+    "cloudflare",
+    "workers",
+    "micropayments",
+    "crypto",
+    "web3"
+  ]
 }

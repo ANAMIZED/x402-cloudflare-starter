@@ -3,10 +3,18 @@ main = "src/index.ts"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
 
-# These are placeholders. 
-# In production, set them as secrets:
+# ===========================================
+# IMPORTANT
+# ===========================================
+# Do NOT put real addresses here in production.
+# Use Cloudflare secrets instead:
+#
 #   npx wrangler secret put BASE_ADDRESS
 #   npx wrangler secret put SOLANA_ADDRESS
+#
+# The values below are only for local development.
+# ===========================================
+
 [vars]
 BASE_ADDRESS = "0xYourBaseAddressHere"
 SOLANA_ADDRESS = "YourSolanaAddressHere"

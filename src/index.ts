@@ -13,32 +13,40 @@ type Env = {
 const app = new Hono<{ Bindings: Env }>();
 
 /**
- * Health / info endpoint (free)
+ * Free endpoints
  */
 app.get("/", (c) => {
   return c.json({
     name: "x402 Cloudflare Starter",
     status: "online",
-    networks: ["Base Mainnet", "Solana Mainnet"],
+    protocol: "x402",
+    networks: ["Base Mainnet (eip155:8453)", "Solana Mainnet"],
     endpoints: {
-      "GET /weather": "$0.01 USDC (Base or Solana)",
+      "GET /": "Free - Health & info",
+      "GET /weather": "$0.01 USDC - Example paid endpoint",
     },
     docs: "https://github.com/ANAMIZED/x402-cloudflare-starter",
+    message: "Bring your own wallets. No Coinbase account required.",
   });
 });
 
+app.get("/health", (c) => {
+  return c.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 /**
- * Apply x402 payment middleware
+ * x402 Payment Middleware
+ * Applied only to paid routes
  */
-app.use("*", async (c, next) => {
+app.use("/weather", async (c, next) => {
   const baseAddress = c.env.BASE_ADDRESS;
   const solanaAddress = c.env.SOLANA_ADDRESS;
 
   if (!baseAddress || !solanaAddress) {
     return c.json(
       {
-        error: "Missing required environment variables",
-        required: ["BASE_ADDRESS", "SOLANA_ADDRESS"],
+        error: "Server misconfigured",
+        message: "BASE_ADDRESS and SOLANA_ADDRESS must be set as secrets",
       },
       500
     );
@@ -81,14 +89,16 @@ app.use("*", async (c, next) => {
 });
 
 /**
- * Paid endpoint
+ * Paid endpoint example
  */
 app.get("/weather", (c) => {
   return c.json({
     weather: "sunny",
     temperature: 72,
     location: "San Francisco",
+    unit: "fahrenheit",
     message: "Payment received via x402. Thank you!",
+    paid: true,
     timestamp: new Date().toISOString(),
   });
 });
