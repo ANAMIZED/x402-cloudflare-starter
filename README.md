@@ -8,15 +8,13 @@
 [![x402](https://img.shields.io/badge/x402-Protocol-green)](https://x402.org)
 [![Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://base.org)
 [![Solana](https://img.shields.io/badge/Solana-Mainnet-9945FF)](https://solana.com)
+[![MCP](https://img.shields.io/badge/MCP-Server-purple)](mcp/server.ts)
 
 ---
 
 ## Why this exists
 
-Most x402 examples either:
-- Force you into Coinbase CDP, or
-- Are testnet-only, or
-- Are overly complex
+Most x402 examples either force you into Coinbase CDP, are testnet-only, or are overly complex.
 
 This starter is different:
 
@@ -25,6 +23,7 @@ This starter is different:
 - Uses the **PayAI facilitator** (free tier available)
 - Optimized for **Cloudflare Workers**
 - Production-ready for mainnet
+- **Agent-discoverable** via `AGENTS.md` + MCP server
 - Extremely minimal and readable
 
 Built for the open source and crypto communities.
@@ -39,6 +38,8 @@ Built for the open source and crypto communities.
 - Easy to add new paid endpoints
 - Clean separation of free vs paid routes
 - Test client included
+- **MCP server** for AI agent discovery
+- `AGENTS.md` for coding agents
 - MIT licensed
 
 ---
@@ -75,6 +76,21 @@ https://x402-cloudflare-starter.<your-subdomain>.workers.dev/weather
 
 ---
 
+## Agent Discoverability
+
+This project is designed to be found and used by AI agents:
+
+- **`AGENTS.md`** — Tells coding agents how the repo works
+- **`mcp/server.ts`** — MCP server with tools for explaining, generating endpoints, and deployment help
+
+Agents can use the MCP tools to:
+- Understand the starter
+- Generate new paid endpoint code
+- Get deployment instructions
+- List supported networks
+
+---
+
 ## How x402 works (simple version)
 
 1. Client requests a paid resource → `/weather`
@@ -92,10 +108,12 @@ No accounts. No API keys. No sessions.
 ```
 ├── src/
 │   └── index.ts          # Main Worker (Hono + x402)
+├── mcp/
+│   └── server.ts         # MCP server for AI agents
 ├── scripts/
 │   └── test-client.ts    # Auto-paying test client
+├── AGENTS.md             # Guidance for coding agents
 ├── wrangler.toml
-├── package.json
 └── README.md
 ```
 
@@ -126,22 +144,13 @@ Edit `src/index.ts`. Example:
 },
 ```
 
-Then add the route handler:
-
-```ts
-app.get("/premium-data", (c) => {
-  return c.json({ data: "secret sauce" });
-});
-```
+Then add the route handler.
 
 ---
 
 ## Test Client
 
-A simple auto-paying client is included:
-
 ```bash
-# Set test private keys (never commit these)
 export EVM_PRIVATE_KEY=0x...
 export SVM_PRIVATE_KEY=...   # base58
 
@@ -156,23 +165,6 @@ npx tsx scripts/test-client.ts https://your-worker.workers.dev/weather
 - Use Cloudflare secrets for `BASE_ADDRESS` and `SOLANA_ADDRESS`
 - Start with small amounts while testing
 - The PayAI facilitator is used by default (no API key required on free tier)
-- For high volume, consider authenticating with PayAI or running your own facilitator
-
----
-
-## Networks Supported
-
-| Network       | CAIP-2 ID                              | Status   |
-|---------------|----------------------------------------|----------|
-| Base Mainnet  | `eip155:8453`                          | Ready    |
-| Solana Mainnet| `solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp` | Ready  |
-
----
-
-## Contributing
-
-PRs and issues are welcome.  
-This project aims to stay minimal, readable, and useful for real builders.
 
 ---
 
@@ -182,4 +174,4 @@ MIT
 
 ---
 
-Built for the open source + crypto ecosystems.
+Built for the open source + crypto + agent ecosystems.
