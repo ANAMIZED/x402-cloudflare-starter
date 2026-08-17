@@ -1,207 +1,33 @@
 # x402 Cloudflare Starter
 
-**The cleanest, most practical way to accept USDC micropayments on Base + Solana using the x402 protocol.**
+[![CI](https://github.com/ANAMIZED/x402-cloudflare-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/ANAMIZED/x402-cloudflare-starter/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
+[![MCP](https://img.shields.io/badge/MCP-server-purple.svg)](mcp/server.ts)
+[![Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020.svg)](src/index.ts)
+[![x402](https://img.shields.io/badge/x402-payments-green.svg)](https://x402.org)
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ANAMIZED/x402-cloudflare-starter)
+**The simplest way to accept USDC payments on Base + Solana using x402.** Bring your own wallets. No Coinbase account required. Optimized for Cloudflare Workers + PayAI facilitator.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![x402](https://img.shields.io/badge/x402-Protocol-green)](https://x402.org)
-[![Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://base.org)
-[![Solana](https://img.shields.io/badge/Solana-Mainnet-9945FF)](https://solana.com)
-[![MCP](https://img.shields.io/badge/MCP-Server-purple)](mcp/server.ts)
+## Surfaces
 
-**[Support Public Goods](https://donate.stripe.com/00w5kE3wOg5L8Jn2F243S00)** · **[OpenGOS Pro](https://buy.stripe.com/7sY8wQ5EWf1H3p3bby43S01)**
+| Surface | Entry |
+|---------|-------|
+| **API (Worker)** | `src/index.ts` |
+| **MCP Server** | `mcp/server.ts` |
+| **Client test** | `scripts/test-client.ts` |
+| **CI** | `.github/workflows/ci.yml` |
+| **AGENTS.md** | Agent contract |
 
-*Fiat support via Stripe is optional. Native x402 crypto rails are preferred.*
-
----
-
-## Official Non-custodial Deposit Addresses (ANAMIZED)
-
-These are the production addresses used by ANAMIZED projects:
-
-| Network | Address | Explorer |
-|---------|---------|----------|
-| **Base** | `0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438` | [basescan](https://basescan.org/address/0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438) |
-| **Ethereum** | `0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438` | [etherscan](https://etherscan.io/address/0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438) |
-| **Solana** | `ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A` | [solscan](https://solscan.io/account/ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A) |
-
-> Fully non-custodial. You can use these addresses directly or bring your own.
-
----
-
-## Why this exists
-
-Most x402 examples either force you into Coinbase CDP, are testnet-only, or are overly complex.
-
-This starter is different:
-
-- **Bring your own wallets** (Base + Solana) — or use the official ANAMIZED addresses above
-- **No Coinbase account required** (pure mode)
-- Optional **Stripe x402** dual-mode available if you want payments to land in Stripe
-- Uses the **PayAI facilitator** (free tier available)
-- Optimized for **Cloudflare Workers**
-- Production-ready for mainnet
-- **Agent-discoverable** via `AGENTS.md` + MCP server
-- Extremely minimal and readable
-
-Built for the open source and crypto communities.
-
----
-
-## Payment Modes
-
-| Mode | Description | Best for |
-|------|-------------|----------|
-| `pure` (default) | Your own wallets + PayAI facilitator | Maximum sovereignty, no third-party account needed |
-| `stripe` (optional) | Stripe deposit address + Coinbase CDP | When you want payments to appear in the Stripe Dashboard |
-
-Set `PAYMENT_MODE=stripe` + the required Stripe/CDP secrets only if you need the Stripe path.
-
----
-
-## Features
-
-- Accept USDC on **Base Mainnet** + **Solana Mainnet**
-- Your own receiving addresses (or the official ones above)
-- One-click deploy to Cloudflare
-- Easy to add new paid endpoints
-- Clean separation of free vs paid routes
-- Test client included
-- **MCP server** for AI agent discovery
-- `AGENTS.md` for coding agents
-- MIT licensed
-
----
+> Multi-agent workflows and Python SDK/CLI are intentionally out of scope for this TypeScript starter; use [server-os](https://github.com/ANAMIZED/server-os) or [openmesha](https://github.com/ANAMIZED/openmesha) for full agentic OS surfaces.
 
 ## Quick Start
 
-### 1. Deploy with one click
-
-Click the button above, then set these secrets in the Cloudflare dashboard:
-
-| Secret            | Example / Official ANAMIZED value |
-|-------------------|-----------------------------------|
-| `BASE_ADDRESS`    | `0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438` |
-| `SOLANA_ADDRESS`  | `ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A` |
-
-### 2. Or deploy manually
-
 ```bash
-git clone https://github.com/ANAMIZED/x402-cloudflare-starter.git
-cd x402-cloudflare-starter
 npm install
-
-npx wrangler secret put BASE_ADDRESS
-npx wrangler secret put SOLANA_ADDRESS
-
-npm run deploy
+npx wrangler dev
 ```
-
-Your endpoint will be live at:
-
-```
-https://x402-cloudflare-starter.<your-subdomain>.workers.dev/weather
-```
-
----
-
-## Agent Discoverability
-
-This project is designed to be found and used by AI agents:
-
-- **`AGENTS.md`** — Tells coding agents how the repo works
-- **`mcp/server.ts`** — MCP server with tools for explaining, generating endpoints, and deployment help
-
-Agents can use the MCP tools to:
-- Understand the starter
-- Generate new paid endpoint code
-- Get deployment instructions
-- List supported networks
-
----
-
-## How x402 works (simple version)
-
-1. Client requests a paid resource → `/weather`
-2. Server responds with **HTTP 402 Payment Required** + payment details
-3. Client pays in USDC on Base or Solana
-4. Client retries the request with a payment proof
-5. Server verifies the payment via facilitator and returns the data
-
-No accounts. No API keys. No sessions.
-
----
-
-## Project Structure
-
-```
-├── src/
-│   └── index.ts          # Main Worker (Hono + x402)
-├── mcp/
-│   └── server.ts         # MCP server for AI agents
-├── scripts/
-│   └── test-client.ts    # Auto-paying test client
-├── AGENTS.md             # Guidance for coding agents
-├── wrangler.toml
-└── README.md
-```
-
----
-
-## Adding new paid endpoints
-
-Edit `src/index.ts`. Example:
-
-```ts
-"GET /premium-data": {
-  accepts: [
-    {
-      scheme: "exact",
-      price: "$0.05",
-      network: "eip155:8453",
-      payTo: baseAddress,
-    },
-    {
-      scheme: "exact",
-      price: "$0.05",
-      network: "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
-      payTo: solanaAddress,
-    },
-  ],
-  description: "Premium market data",
-  mimeType: "application/json",
-},
-```
-
-Then add the route handler.
-
----
-
-## Test Client
-
-```bash
-export EVM_PRIVATE_KEY=0x...
-export SVM_PRIVATE_KEY=...   # base58
-
-npx tsx scripts/test-client.ts https://your-worker.workers.dev/weather
-```
-
----
-
-## Security Notes
-
-- Never commit private keys
-- Use Cloudflare secrets for `BASE_ADDRESS` and `SOLANA_ADDRESS`
-- Start with small amounts while testing
-- The PayAI facilitator is used by default (no API key required on free tier)
-
----
 
 ## License
 
 MIT
-
----
-
-Built for the open source + crypto + agent ecosystems.
