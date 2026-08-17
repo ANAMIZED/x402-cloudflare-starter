@@ -10,6 +10,10 @@
 [![Solana](https://img.shields.io/badge/Solana-Mainnet-9945FF)](https://solana.com)
 [![MCP](https://img.shields.io/badge/MCP-Server-purple)](mcp/server.ts)
 
+**[Support Public Goods](https://donate.stripe.com/test_28E8wP60D9pC9hf1flbAs00)** · **[OpenGOS Pro](https://buy.stripe.com/test_9B65kD60D31e3WVaPVbAs01)**
+
+*Test-mode links. Complements x402 crypto rails with fiat support.*
+
 ---
 
 ## Why this exists
