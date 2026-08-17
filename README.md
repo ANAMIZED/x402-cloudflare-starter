@@ -12,7 +12,21 @@
 
 **[Support Public Goods](https://donate.stripe.com/00w5kE3wOg5L8Jn2F243S00)** · **[OpenGOS Pro](https://buy.stripe.com/7sY8wQ5EWf1H3p3bby43S01)**
 
-*Fiat support via Stripe complements the native x402 crypto rails.*
+*Fiat support via Stripe is optional. Native x402 crypto rails are preferred.*
+
+---
+
+## Official Non-custodial Deposit Addresses (ANAMIZED)
+
+These are the production addresses used by ANAMIZED projects:
+
+| Network | Address | Explorer |
+|---------|---------|----------|
+| **Base** | `0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438` | [basescan](https://basescan.org/address/0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438) |
+| **Ethereum** | `0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438` | [etherscan](https://etherscan.io/address/0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438) |
+| **Solana** | `ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A` | [solscan](https://solscan.io/account/ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A) |
+
+> Fully non-custodial. You can use these addresses directly or bring your own.
 
 ---
 
@@ -22,8 +36,9 @@ Most x402 examples either force you into Coinbase CDP, are testnet-only, or are 
 
 This starter is different:
 
-- **Bring your own wallets** (Base + Solana)
-- **No Coinbase account required**
+- **Bring your own wallets** (Base + Solana) — or use the official ANAMIZED addresses above
+- **No Coinbase account required** (pure mode)
+- Optional **Stripe x402** dual-mode available if you want payments to land in Stripe
 - Uses the **PayAI facilitator** (free tier available)
 - Optimized for **Cloudflare Workers**
 - Production-ready for mainnet
@@ -34,10 +49,21 @@ Built for the open source and crypto communities.
 
 ---
 
+## Payment Modes
+
+| Mode | Description | Best for |
+|------|-------------|----------|
+| `pure` (default) | Your own wallets + PayAI facilitator | Maximum sovereignty, no third-party account needed |
+| `stripe` (optional) | Stripe deposit address + Coinbase CDP | When you want payments to appear in the Stripe Dashboard |
+
+Set `PAYMENT_MODE=stripe` + the required Stripe/CDP secrets only if you need the Stripe path.
+
+---
+
 ## Features
 
 - Accept USDC on **Base Mainnet** + **Solana Mainnet**
-- Your own receiving addresses
+- Your own receiving addresses (or the official ones above)
 - One-click deploy to Cloudflare
 - Easy to add new paid endpoints
 - Clean separation of free vs paid routes
@@ -52,12 +78,12 @@ Built for the open source and crypto communities.
 
 ### 1. Deploy with one click
 
-Click the button above, then set these two secrets in the Cloudflare dashboard:
+Click the button above, then set these secrets in the Cloudflare dashboard:
 
-| Secret            | Example                          |
-|-------------------|----------------------------------|
-| `BASE_ADDRESS`    | `0xYourBaseWallet...`            |
-| `SOLANA_ADDRESS`  | `YourSolanaWallet...`            |
+| Secret            | Example / Official ANAMIZED value |
+|-------------------|-----------------------------------|
+| `BASE_ADDRESS`    | `0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438` |
+| `SOLANA_ADDRESS`  | `ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A` |
 
 ### 2. Or deploy manually
 
