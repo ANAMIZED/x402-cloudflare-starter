@@ -1,7 +1,11 @@
 {
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": [
+    "ANAMIZED"
+  ],
   "name": "x402-cloudflare-starter",
   "displayName": "x402 Cloudflare Starter",
-  "description": "Cleanest USDC micropayments on Base + Solana via x402. BYO wallets. Cloudflare Workers. Agent-discoverable MCP.",
+  "description": "USDC micropayments on Base + Solana via x402. BYO wallets. Cloudflare Workers.",
   "repository": "https://github.com/ANAMIZED/x402-cloudflare-starter",
   "license": "MIT",
   "version": "0.1.0"
