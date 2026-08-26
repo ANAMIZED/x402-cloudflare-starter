@@ -1,0 +1,12 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: []
+    properties: {}
+  exampleConfig: {}
+  commandFunction: |
+    (config) => ({
+      command: 'npx',
+      args: ['tsx', 'mcp/stdio.ts']
+    })
