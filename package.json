@@ -13,7 +13,7 @@
     "deploy": "wrangler deploy",
     "tail": "wrangler tail",
     "test:client": "tsx scripts/test-client.ts",
-    "mcp": "tsx mcp/server.ts"
+    "mcp": "tsx mcp/stdio.ts"
   },
   "dependencies": {
     "hono": "^4.6.12",
