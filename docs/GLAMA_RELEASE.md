@@ -1,23 +1,20 @@
 # Glama admin — x402-cloudflare-starter
 
-Glama generates FROM debian:trixie-slim and wraps CMD with mcp-proxy.
+The form fields must not stay `[]`. Glama generates debian:trixie-slim + Node 26 + mcp-proxy.
 
-1. Sync Server. Pinned SHA empty.
-2. Node.js version: 22 (or default)
-3. Python version: unused
-4. Build steps:
+## Build steps
 
 ```json
 ["npm install --omit=dev --ignore-scripts --prefix mcp"]
 ```
 
-5. CMD arguments:
+## CMD arguments
 
 ```json
-["mcp/node_modules/.bin/tsx", "mcp/stdio.ts"]
+["node", "mcp/stdio.mjs"]
 ```
 
-Do not npm install the Worker graph at repo root (@payai/facilitator does not resolve).
+Env schema: `{\"type\":\"object\",\"properties\":{},\"required\":[]}`
+Placeholders: `{}`
 
-6. Env schema: `{\"type\":\"object\",\"properties\":{},\"required\":[]}`
-7. Placeholders: `{}`
+Do not `npm install` at repo root (@payai/facilitator 404s the build).
