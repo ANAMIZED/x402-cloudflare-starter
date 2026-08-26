@@ -3,18 +3,14 @@ main = "src/index.ts"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
 
-# ===========================================
-# IMPORTANT
-# ===========================================
-# Do NOT put real addresses here in production.
-# Use Cloudflare secrets instead:
-#
+# Base is the default settlement network (eip155:8453).
+# Production secrets override these documented receive addresses:
 #   npx wrangler secret put BASE_ADDRESS
 #   npx wrangler secret put SOLANA_ADDRESS
-#
-# The values below are only for local development.
-# ===========================================
 
 [vars]
-BASE_ADDRESS = "0xYourBaseAddressHere"
-SOLANA_ADDRESS = "YourSolanaAddressHere"
+BASE_ADDRESS = "0xD3d0E9eDAe3Ac7bb199a8EAA761BdA423b878438"
+SOLANA_ADDRESS = "ETQwWf19axArsY493UfC6bxe2BmEzmzvCb58PPnC38A"
+NETWORK_DEFAULT = "eip155:8453"
+MERCHANT_NAME = "ANAMIZED x402"
+DESK_ORIGIN = "https://anamized.grok.me"

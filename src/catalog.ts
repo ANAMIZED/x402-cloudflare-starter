@@ -17,6 +17,10 @@ export const NETWORKS = {
   solana: "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
 } as const;
 
+/** Base native USDC. Use this in grant forms / explorer links. */
+export const BASE_USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+export const PRIMARY_NETWORK = NETWORKS.base;
+
 export type Sku = {
   id: string;
   path: string;
