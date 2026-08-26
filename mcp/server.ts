@@ -10,14 +10,11 @@ import { z } from "zod";
 
 const server = new McpServer({
   name: "x402-cloudflare-starter",
-  version: "1.1.0",
+  version: "1.3.0",
   description:
-    "Tools and knowledge for accepting USDC micropayments on Base + Solana using the x402 protocol on Cloudflare Workers. Bring your own wallets. No Coinbase account required.",
+    "ANAMIZED agent checkout: USDC micropayments on Base + Solana via x402, parallel to live Stripe Payment Links. Cycle $0.75, Search $0.40, Draft $2.50.",
 });
 
-/**
- * Tool: Explain how x402 works in this starter
- */
 server.tool(
   "explain_x402_starter",
   "Explains how this x402 Cloudflare starter works and how to use it",
@@ -27,31 +24,77 @@ server.tool(
       content: [
         {
           type: "text",
-          text: `This is a minimal x402 payment starter for Cloudflare Workers.
+          text: `ANAMIZED x402 agent checkout on Cloudflare Workers.
 
 Key points:
 - Accepts USDC on Base Mainnet (eip155:8453) and Solana Mainnet
-- Uses your own wallet addresses (BASE_ADDRESS + SOLANA_ADDRESS)
-- No Coinbase / CDP account required
-- Uses the PayAI facilitator by default
-- Optimized for Cloudflare Workers + Hono
+- Uses Worker secrets BASE_ADDRESS + SOLANA_ADDRESS (no Coinbase / CDP required)
+- PayAI facilitator by default
+- Hybrid catalog: same SKUs as Stripe Payment Links
 
-Main endpoint example: GET /weather costs $0.01 USDC
+Paid SKUs (receipt-only; host owns Desk fulfillment):
+- GET /v1/cycle  $0.75  Agentic OS Cycle
+- GET /v1/search $0.40  OpenGOS Advanced Search
+- GET /v1/draft  $2.50  OpenGOS Proposal Draft
 
-To deploy:
-1. Set secrets: BASE_ADDRESS and SOLANA_ADDRESS
-2. Run: npm run deploy
+Free: GET / , GET /health , GET /v1/catalog
+Example: GET /weather $0.01
 
-Repo: https://github.com/ANAMIZED/x402-cloudflare-starter`,
+Stripe parallels:
+- Cycle https://buy.stripe.com/3cI14o8R8dXD3p3frO43S04
+- Search https://buy.stripe.com/7sY8wQ5EW3iZ5xb5Re43S06
+- Draft https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03
+
+Repo: https://github.com/ANAMIZED/x402-cloudflare-starter
+Desk: https://anamized.grok.me`,
         },
       ],
     };
   }
 );
 
-/**
- * Tool: Get supported networks
- */
+server.tool(
+  "list_agent_skus",
+  "Returns the hybrid x402 + Stripe first-dollar SKU catalog",
+  {},
+  async () => {
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(
+            {
+              fulfillment: "receipt-only",
+              skus: [
+                {
+                  id: "os-cycle",
+                  x402: "GET /v1/cycle",
+                  price: "$0.75",
+                  stripe: "https://buy.stripe.com/3cI14o8R8dXD3p3frO43S04",
+                },
+                {
+                  id: "opengos-search",
+                  x402: "GET /v1/search",
+                  price: "$0.40",
+                  stripe: "https://buy.stripe.com/7sY8wQ5EW3iZ5xb5Re43S06",
+                },
+                {
+                  id: "opengos-draft",
+                  x402: "GET /v1/draft",
+                  price: "$2.50",
+                  stripe: "https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03",
+                },
+              ],
+            },
+            null,
+            2
+          ),
+        },
+      ],
+    };
+  }
+);
+
 server.tool(
   "get_supported_networks",
   "Returns the blockchain networks supported by this x402 starter",
@@ -89,9 +132,6 @@ server.tool(
   }
 );
 
-/**
- * Tool: Generate a new paid endpoint snippet
- */
 server.tool(
   "generate_paid_endpoint",
   "Generates a code snippet for a new x402 paid endpoint",
@@ -142,9 +182,6 @@ app.get("${path}", (c) => {
   }
 );
 
-/**
- * Tool: Get deployment instructions
- */
 server.tool(
   "get_deployment_instructions",
   "Returns step-by-step instructions to deploy this x402 starter",
@@ -161,18 +198,20 @@ server.tool(
    cd x402-cloudflare-starter
    npm install
 
-2. Set your receiving wallet addresses as secrets:
+2. Set receiving wallet addresses as secrets:
    npx wrangler secret put BASE_ADDRESS
    npx wrangler secret put SOLANA_ADDRESS
 
 3. Deploy:
    npm run deploy
 
-4. Test:
-   Visit https://your-worker.workers.dev/
-   Then try the paid endpoint: /weather
+4. Test free catalog:
+   GET https://your-worker.workers.dev/v1/catalog
 
-Optional: Use the one-click Deploy to Cloudflare button in the README.`,
+5. Paid SKUs require an x402 client (see scripts/test-client.ts).
+   Humans can use the Stripe parallels instead.
+
+Repo: https://github.com/ANAMIZED/x402-cloudflare-starter`,
         },
       ],
     };
