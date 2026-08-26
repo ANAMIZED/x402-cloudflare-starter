@@ -1,32 +1,25 @@
 # x402 Cloudflare Starter
 
-[![CI](https://github.com/ANAMIZED/x402-cloudflare-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/ANAMIZED/x402-cloudflare-starter/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
-[![MCP](https://img.shields.io/badge/MCP-server-purple.svg)](mcp/server.ts)
-[![Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020.svg)](src/index.ts)
-[![x402](https://img.shields.io/badge/x402-payments-green.svg)](https://x402.org)
-
-**The simplest way to accept USDC payments on Base + Solana using x402.** Bring your own wallets. No Coinbase account required. Optimized for Cloudflare Workers + PayAI facilitator.
+**The simplest way to accept USDC payments on Base + Solana using x402.** Bring your own wallets. No Coinbase account required.
 
 This repo is the **agent checkout rail** for ANAMIZED first-dollar SKUs. Humans use Stripe Payment Links. Agents use x402. Same prices. Host owns fulfillment.
+
+**Base is the default settlement network** (`eip155:8453`, USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`). Solana is an optional parallel.
 
 ## Surfaces
 
 | Surface | Entry |
 |---------|-------|
 | **API (Worker)** | `src/index.ts` |
+| **60s demo** | `GET /demo` |
+| **Receipt ledger** | `GET /v1/receipts` |
 | **SKU catalog** | `src/catalog.ts` + `GET /v1/catalog` |
 | **MCP Server** | `mcp/server.ts` |
-| **Client test** | `scripts/test-client.ts` |
-| **CI** | `.github/workflows/ci.yml` |
-| **AGENTS.md** | Agent contract |
-
-> Multi-agent workflows and Python SDK/CLI are intentionally out of scope for this TypeScript starter; use [server-os](https://github.com/ANAMIZED/server-os) or [openmesha](https://github.com/ANAMIZED/openmesha) for full agentic OS surfaces. Commerce routing from [SuperAgenticMCP](https://github.com/ANAMIZED/SuperAgenticMCP) points here.
+| **Application pack** | `docs/APPLICATION_PACK.md` |
 
 ## Agent checkout (hybrid)
 
-Free: `GET /` · `GET /health` · `GET /v1/catalog`
+Free: `GET /` · `GET /health` · `GET /demo` · `GET /v1/catalog` · `GET /v1/receipts`
 
 | SKU | x402 | Stripe (human) |
 |-----|------|----------------|
@@ -34,9 +27,9 @@ Free: `GET /` · `GET /health` · `GET /v1/catalog`
 | OpenGOS Search $0.40 | `GET /v1/search` | [Stripe](https://buy.stripe.com/7sY8wQ5EW3iZ5xb5Re43S06) |
 | OpenGOS Draft $2.50 | `GET /v1/draft` | [Stripe](https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03) |
 
-Paid handlers return a **receipt only**. They do not write `fulfillment-claims.json` or unlock Desk Studio. Sync on [ANAMIZED Desk](https://anamized.grok.me) after payment.
+Paid handlers return a **receipt only**. They do not unlock Desk Studio.
 
-Documented receive addresses (set the same values as Worker secrets):
+Documented receive addresses:
 
 | Network | Address |
 |---------|---------|
@@ -49,8 +42,7 @@ Documented receive addresses (set the same values as Worker secrets):
 npm install
 npx wrangler secret put BASE_ADDRESS
 npx wrangler secret put SOLANA_ADDRESS
-npx wrangler dev
-# GET http://127.0.0.1:8787/v1/catalog
+npx wrangler deploy
 ```
 
 ## License
