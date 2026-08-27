@@ -9,10 +9,11 @@ It lets agents pay **USDC** on **Base Mainnet** and **Solana Mainnet** using x40
 - Agentic OS Cycle `$0.75` → `GET /v1/cycle`
 - OpenGOS Advanced Search `$0.40` → `GET /v1/search`
 - OpenGOS Proposal Draft `$2.50` → `GET /v1/draft`
+- Agentic Trading Decision Cycle `$4.00` → `GET /v1/trading`
 
 Humans keep using live Stripe Payment Links. Do not invent URLs.
 
-Payments are verified via the PayAI facilitator. A 200 on a paid route is a **receipt**, not a Desk entitlement write.
+Payments are verified via the PayAI facilitator. A 200 on a paid route is a **receipt**, not a Desk entitlement write. Trading receipts are not live execution.
 
 ## Key files
 
@@ -37,6 +38,7 @@ Payments are verified via the PayAI facilitator. A 200 on a paid route is a **re
 
 - Do **not** invent Stripe links or prices
 - Do **not** claim a paid x402 call unlocks Studio / seats
+- Do **not** claim `/v1/trading` executes live trades
 - Do **not** switch the default facilitator to CDP unless the user explicitly wants Coinbase
 - Prefer keeping the codebase minimal and readable
 
