@@ -10,9 +10,9 @@ import { z } from "zod";
 
 const server = new McpServer({
   name: "x402-cloudflare-starter",
-  version: "1.3.0",
+  version: "1.3.1",
   description:
-    "ANAMIZED agent checkout: USDC micropayments on Base + Solana via x402, parallel to live Stripe Payment Links. Cycle $0.75, Search $0.40, Draft $2.50.",
+    "ANAMIZED agent checkout: USDC micropayments on Base + Solana via x402, parallel to live Stripe Payment Links. Cycle $0.75, Search $0.40, Draft $2.50, Trading $4.00.",
 });
 
 server.tool(
@@ -24,7 +24,7 @@ server.tool(
       content: [
         {
           type: "text",
-          text: `ANAMIZED x402 agent checkout on Cloudflare Workers.\n\nKey points:\n- Accepts USDC on Base Mainnet (eip155:8453) and Solana Mainnet\n- Uses Worker secrets BASE_ADDRESS + SOLANA_ADDRESS (no Coinbase / CDP required)\n- PayAI facilitator by default\n- Hybrid catalog: same SKUs as Stripe Payment Links\n\nPaid SKUs (receipt-only; host owns Desk fulfillment):\n- GET /v1/cycle  $0.75  Agentic OS Cycle\n- GET /v1/search $0.40  OpenGOS Advanced Search\n- GET /v1/draft  $2.50  OpenGOS Proposal Draft\n\nFree: GET / , GET /health , GET /v1/catalog\nExample: GET /weather $0.01\n\nStripe parallels:\n- Cycle https://buy.stripe.com/3cI14o8R8dXD3p3frO43S04\n- Search https://buy.stripe.com/7sY8wQ5EW3iZ5xb5Re43S06\n- Draft https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03\n\nRepo: https://github.com/ANAMIZED/x402-cloudflare-starter\nDesk: https://anamized.grok.me`,
+          text: `ANAMIZED x402 agent checkout on Cloudflare Workers.\n\nKey points:\n- Accepts USDC on Base Mainnet (eip155:8453) and Solana Mainnet\n- Uses Worker secrets BASE_ADDRESS + SOLANA_ADDRESS (no Coinbase / CDP required)\n- PayAI facilitator by default\n- Hybrid catalog: same SKUs as Stripe Payment Links\n\nPaid SKUs (receipt-only; host owns Desk fulfillment):\n- GET /v1/cycle    $0.75  Agentic OS Cycle\n- GET /v1/search   $0.40  OpenGOS Advanced Search\n- GET /v1/draft    $2.50  OpenGOS Proposal Draft\n- GET /v1/trading  $4.00  Agentic Trading Decision Cycle (not live execution)\n\nFree: GET / , GET /health , GET /v1/catalog\nExample: GET /weather $0.01\n\nStripe parallels:\n- Cycle https://buy.stripe.com/3cI14o8R8dXD3p3frO43S04\n- Search https://buy.stripe.com/7sY8wQ5EW3iZ5xb5Re43S06\n- Draft https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03\n- Trading https://buy.stripe.com/bJedRaebsaLr2kZ2F243S05\n\nRepo: https://github.com/ANAMIZED/x402-cloudflare-starter\nDesk: https://anamized.grok.me`,
         },
       ],
     };
@@ -61,6 +61,13 @@ server.tool(
                   x402: "GET /v1/draft",
                   price: "$2.50",
                   stripe: "https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03",
+                },
+                {
+                  id: "trading-cycle",
+                  x402: "GET /v1/trading",
+                  price: "$4.00",
+                  stripe: "https://buy.stripe.com/bJedRaebsaLr2kZ2F243S05",
+                  note: "Receipt only. Not live execution.",
                 },
               ],
             },
