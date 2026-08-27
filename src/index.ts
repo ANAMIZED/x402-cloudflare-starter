@@ -88,6 +88,7 @@ app.get("/", (c) => {
       "GET /v1/cycle": "$0.75 USDC — Agentic OS Cycle",
       "GET /v1/search": "$0.40 USDC — OpenGOS Advanced Search",
       "GET /v1/draft": "$2.50 USDC — OpenGOS Proposal Draft",
+      "GET /v1/trading": "$4.00 USDC — Agentic Trading Decision Cycle",
       "GET /weather": "$0.01 USDC — starter example",
     },
     docs: "https://github.com/ANAMIZED/x402-cloudflare-starter",
