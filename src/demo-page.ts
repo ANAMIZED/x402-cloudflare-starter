@@ -44,6 +44,7 @@ export const DEMO_HTML = `<!doctype html>
     <button onclick="go('/v1/catalog')">GET /v1/catalog (free)</button>
     <button onclick="go('/v1/cycle')">GET /v1/cycle $0.75 (expect 402)</button>
     <button onclick="go('/v1/search')">GET /v1/search $0.40 (expect 402)</button>
+    <button onclick="go('/v1/trading')">GET /v1/trading $4.00 (expect 402)</button>
     <button onclick="go('/v1/receipts')">GET /v1/receipts</button>
   </div>
   <div class="card"><pre id="out">Ready. Click a path.</pre></div>
