@@ -59,6 +59,16 @@ export const SKUS: Sku[] = [
     stripe: "https://buy.stripe.com/9B69AUd7o7zf2kZ2F243S03",
     github: "https://github.com/ANAMIZED/OpenGOS",
   },
+  {
+    id: "trading-cycle",
+    path: "/v1/trading",
+    price: "$4.00",
+    unit: "trading_cycle",
+    description:
+      "Agentic Trading Decision Cycle — one Scan→Quant→Risk Gates credit (receipt-only; not live execution)",
+    stripe: "https://buy.stripe.com/bJedRaebsaLr2kZ2F243S05",
+    github: "https://github.com/ANAMIZED/AgenticArb",
+  },
 ];
 
 export function skuByPath(path: string): Sku | undefined {
